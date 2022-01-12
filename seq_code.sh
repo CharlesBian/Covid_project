@@ -2,18 +2,19 @@
 ## author: Charles Bian
 ## Software: seqkit , numer
 ## sequence is from Gisaid website (Virus=hCov-19,Host=human )
-## Template=NC_045512.2.fa (NCBI) 
+## Template=NC_045512.2 (NCBI) 
 
 date
-input=*.fasta
-ref=NC_045512.2.fa
+
+input=Cov19_1.fasta
+ref=NC_045512.txt
 
 ## clear the sequence
 seqkit grep -s -p -$input -v > Gisaid_RMD.fasta
 
 ##Covert the DOS/windows file format to UNIX format for both ref and input file
 sed 's/^M$//' Gisaid_clear.fasta > Gisaid_clear_format.fasta
-sed 's/^MS//' NC_045512.2.fa > ref.fa
+sed 's/^MS//' NC_045512.txt > ref.fa
 
 ## remove fasta sequence with duplicated ID
 awk '/^>/{f=!d[$1];d[$1]=1}f' Gisaid_clear_format.fasta > Gisaid_RMD.fasta
